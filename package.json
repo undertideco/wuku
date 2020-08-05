@@ -1,0 +1,25 @@
+{
+  "name": "wuku",
+  "version": "1.0.0",
+  "description": "Ethereum crowd-sourcing word game",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jurvis/wuku.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jurvis/wuku/issues"
+  },
+  "homepage": "https://github.com/jurvis/wuku#readme",
+  "dependencies": {
+    "@truffle/hdwallet-provider": "^1.0.40",
+    "ganache-cli": "^6.9.1",
+    "solc": "^0.7.0",
+    "web3": "^1.2.11"
+  }
+}
