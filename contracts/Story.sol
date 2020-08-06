@@ -1,17 +1,18 @@
-pragma solidity ^ 0.4 .17;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.7.0;
 
 contract StoryFactory {
     uint constant minimumStartingContribution = 13000000000000000;
-    address[] public deployedStories;
+    Story[] public deployedStories;
 
-  function createStory(string startText) public payable {
+  function createStory(string memory startText) public payable {
     require(msg.value >= minimumStartingContribution);
     
-    address newStory = new Story(startText, msg.sender, msg.value);
+    Story newStory = new Story(startText, msg.sender, msg.value);
     deployedStories.push(newStory);
   }
   
-  function getDeployedStories() public view returns(address[]) {
+  function getDeployedStories() public view returns(Story[] memory) {
     return deployedStories;
   }
 }
@@ -25,33 +26,30 @@ contract Story {
     }
     
     uint minimumContribution = 250000000000000;
-    Contribution[] public contributions;
     address public host;
+    uint numContributions;
+    mapping (uint => Contribution) public contributions;
     
-    function Story(string startText, address storyCreator, uint startingAmount) public payable {
-        Contribution memory newContribution = Contribution({
-            description: startText,
-            contributor: storyCreator,
-            amount: startingAmount
-        });
-        
+    constructor (string memory startText, address storyCreator, uint startingAmount) payable {
         host = storyCreator;
-        contributions.push(newContribution);
+        
+        Contribution storage c = contributions[0];
+        c.description = startText;
+        c.contributor = storyCreator;
+        c.amount = startingAmount;
     }
     
-    function createContribution(string description) public payable {
+    function createContribution(string memory description, uint contributionID) public payable {
         require(msg.sender != host);
         require(msg.value == minimumContribution);
         
-        Contribution memory newContribution = Contribution({
-          description: description,
-          contributor: msg.sender,
-          amount: minimumContribution
-        });
+
+        contributionID = numContributions++;
         
-        minimumContribution = minimumContribution * 2;
-        
-        contributions.push(newContribution);
+        Contribution storage c = contributions[contributionID];
+        c.description = description;
+        c.contributor = msg.sender;
+        c.amount = minimumContribution;
     }
     
     function getMinimumContribution() public view returns(uint) {
