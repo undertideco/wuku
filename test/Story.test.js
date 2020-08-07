@@ -44,13 +44,14 @@ describe('Stories', () => {
   it("allow people to make story contribution and increase the minimum contribution", async () => {
     await story.methods.createContribution('first contribution').send({
       value: '250000000000000',
-      from: accounts[1]
+      from: accounts[1],
+      gas: '3000000'
     });
 
     const minContribution = await story.methods.getMinimumContribution().call();
-    const contribution = await story.methods.contributions(0).call();
+    const contribution = await story.methods.contributions(1).call();
 
     assert.equal(contribution.contributor, accounts[1]);
     assert.equal(minContribution, '500000000000000')
-  });
+  });  
 });

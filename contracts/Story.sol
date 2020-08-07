@@ -27,32 +27,31 @@ contract Story {
     
     uint minimumContribution = 250000000000000;
     address public host;
-    uint numContributions;
-    mapping (uint => Contribution) public contributions;
+    uint public numContributions = 1;
+    mapping (uint => Contribution) contributions;
     
-    constructor (string memory startText, address storyCreator, uint startingAmount) payable {
-        host = storyCreator;
-        
+    constructor (string memory startText, address storyCreator, uint startingAmount) payable {        
         Contribution storage c = contributions[0];
         c.description = startText;
         c.contributor = storyCreator;
         c.amount = startingAmount;
+
+        host = storyCreator;
     }
     
     function createContribution(string memory description) public payable {
         require(msg.sender != host);
         require(msg.value == minimumContribution);
 
-        uint contributionID = numContributions++;
-        
-        Contribution storage c = contributions[contributionID];
+        Contribution storage c = contributions[numContributions];
         c.description = description;
         c.contributor = msg.sender;
         c.amount = minimumContribution;
 
+        numContributions++;
         minimumContribution = minimumContribution * 2;
     }
-    
+
     function getMinimumContribution() public view returns(uint) {
         return minimumContribution;
     }
