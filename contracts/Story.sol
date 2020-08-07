@@ -39,17 +39,18 @@ contract Story {
         c.amount = startingAmount;
     }
     
-    function createContribution(string memory description, uint contributionID) public payable {
+    function createContribution(string memory description) public payable {
         require(msg.sender != host);
         require(msg.value == minimumContribution);
-        
 
-        contributionID = numContributions++;
+        uint contributionID = numContributions++;
         
         Contribution storage c = contributions[contributionID];
         c.description = description;
         c.contributor = msg.sender;
         c.amount = minimumContribution;
+
+        minimumContribution = minimumContribution * 2;
     }
     
     function getMinimumContribution() public view returns(uint) {

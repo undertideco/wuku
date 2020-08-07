@@ -35,4 +35,22 @@ describe('Stories', () => {
     assert.ok(factory.options.address);
     assert.ok(story.options.address);
   });
+
+  it('marks caller as story host', async () => {
+    const host = await story.methods.host().call();
+    assert.equal(accounts[0], host);
+  });
+
+  it("allow people to make story contribution and increase the minimum contribution", async () => {
+    await story.methods.createContribution('first contribution').send({
+      value: '250000000000000',
+      from: accounts[1]
+    });
+
+    const minContribution = await story.methods.getMinimumContribution().call();
+    const contribution = await story.methods.contributions(0).call();
+
+    assert.equal(contribution.contributor, accounts[1]);
+    assert.equal(minContribution, '500000000000000')
+  });
 });
