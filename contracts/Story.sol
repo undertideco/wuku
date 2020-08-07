@@ -28,6 +28,7 @@ contract Story {
     uint minimumContribution = 250000000000000;
     address public host;
     Contribution[] public contributions;
+    mapping(address => bool) public voters;
     
     constructor (string memory startText, address storyCreator, uint startingAmount) payable {        
         Contribution memory newContribution = Contribution({
@@ -54,8 +55,23 @@ contract Story {
         });
         
         contributions.push(newContribution);
+        voters[msg.sender] = true;
 
         minimumContribution = minimumContribution * 2;
+    }
+
+    function voteContribution(uint index) public {
+      Contribution storage contribution = contributions[index];
+
+      require(voters[msg.sender]);
+
+      contribution.votes.push(msg.sender);
+    }
+
+    function getContributionVoteCount(uint index) public view returns(uint) {
+      Contribution storage contribution = contributions[index];
+
+      return contribution.votes.length;
     }
 
     function getMinimumContribution() public view returns(uint) {
