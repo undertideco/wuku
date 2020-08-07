@@ -22,19 +22,22 @@ contract Story {
         string description;
         uint amount;
         address contributor;
-        mapping(address => bool) votes;
+        address[] votes;
     }
     
     uint minimumContribution = 250000000000000;
     address public host;
-    uint public numContributions = 1;
-    mapping (uint => Contribution) contributions;
+    Contribution[] public contributions;
     
     constructor (string memory startText, address storyCreator, uint startingAmount) payable {        
-        Contribution storage c = contributions[0];
-        c.description = startText;
-        c.contributor = storyCreator;
-        c.amount = startingAmount;
+        Contribution memory newContribution = Contribution({
+           description: startText,
+           contributor: storyCreator,
+           amount: startingAmount,
+           votes: new address[](0)
+        });
+        
+        contributions.push(newContribution);
 
         host = storyCreator;
     }
@@ -43,16 +46,23 @@ contract Story {
         require(msg.sender != host);
         require(msg.value == minimumContribution);
 
-        Contribution storage c = contributions[numContributions];
-        c.description = description;
-        c.contributor = msg.sender;
-        c.amount = minimumContribution;
+        Contribution memory newContribution = Contribution({
+           description: description,
+           contributor: msg.sender,
+           amount: minimumContribution,
+            votes: new address[](0)
+        });
+        
+        contributions.push(newContribution);
 
-        numContributions++;
         minimumContribution = minimumContribution * 2;
     }
 
     function getMinimumContribution() public view returns(uint) {
         return minimumContribution;
+    }
+
+    function getContributionsCount() public view returns(uint) {
+      return contributions.length;
     }
 }
