@@ -39,6 +39,7 @@ contract Story {
         });
         
         contributions.push(newContribution);
+        voters[storyCreator] = true;
 
         host = storyCreator;
     }

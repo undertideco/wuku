@@ -30,7 +30,7 @@ beforeEach(async () => {
   );
 });
 
-describe('Stories', () => {
+describe('Stories and Contributions', () => {
   it('deploys a factory and a story', () => {
     assert.ok(factory.options.address);
     assert.ok(story.options.address);
@@ -39,6 +39,12 @@ describe('Stories', () => {
   it('marks caller as story host', async () => {
     const host = await story.methods.host().call();
     assert.equal(accounts[0], host);
+  });
+
+  it('marks host as eligible voter', async() => {
+    const approvedVoter = await story.methods.voters(accounts[0]).call();
+
+    assert(approvedVoter);
   });
 
   it("allow people to make story contribution, increase the minimum contribution", async () => {
