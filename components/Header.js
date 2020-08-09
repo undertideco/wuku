@@ -2,7 +2,7 @@ import React from 'react';
 import { Menu } from 'semantic-ui-react';
 import { Link } from '../routes';
 
-export default () => {
+const Header = () => {
   return (
     <Menu style={{ marginTop: '10px' }}>
     <Link route='/'>
@@ -27,3 +27,5 @@ export default () => {
   </Menu>
   );
 };
+
+export default Header;
