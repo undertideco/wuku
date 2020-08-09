@@ -1,6 +1,6 @@
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 const Web3 = require("web3");
-const compiledFactory = require('../build/StoryFactory.json');
+const compiledFactory = require('./build/StoryFactory.json');
 
 require('dotenv').config()
 
@@ -18,7 +18,7 @@ const deploy = async () => {
 
   const result = await new web3.eth.Contract(compiledFactory.abi)
     .deploy({ data: compiledFactory.evm.bytecode.object })
-    .send({ gas: '1000000', from: accounts[0] });
+    .send({ gas: '3000000', from: accounts[0] });
 
   console.log('Contract deployed to', result.options.address);
 };
