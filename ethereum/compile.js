@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs-extra');
 const solc = require('solc');
 
-const buildPath = path.resolve(__dirname, 'build')
+const buildPath = path.resolve(__dirname, process.argv[2] === 'test' ? 'build/test' : 'build')
 fs.removeSync(buildPath);
 
 const storyPath = path.resolve(__dirname, 'contracts', 'Story.sol');

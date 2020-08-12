@@ -3,8 +3,8 @@ const ganache = require('ganache-cli');
 const Web3 = require('web3');
 const web3 = new Web3(ganache.provider());
 
-const compiledFactory = require('../ethereum/build/StoryFactory.json');
-const compiledStory = require('../ethereum/build/Story.json');
+const compiledFactory = require('../ethereum/build/test/StoryFactory.json');
+const compiledStory = require('../ethereum/build/test/Story.json');
 
 let accounts;
 let factory;
