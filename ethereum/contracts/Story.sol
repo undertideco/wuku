@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.7.0;
+pragma experimental ABIEncoderV2;
 
 contract StoryFactory {
     uint constant minimumStartingContribution = 13000000000000000;
@@ -81,5 +82,13 @@ contract Story {
 
     function getContributionsCount() public view returns(uint) {
       return contributions.length;
+    }
+
+    function getSummary() public view returns(Contribution[] memory, uint, address) {
+      return (
+        contributions,
+        minimumContribution,
+        host
+      );
     }
 }

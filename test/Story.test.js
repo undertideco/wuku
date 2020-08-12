@@ -19,7 +19,7 @@ beforeEach(async () => {
 
   await factory.methods.createStory('test story').send({
     from: accounts[0],
-    gas: '1000000',
+    gas: '3000000',
     value: '13000000000000000'
   });
 
@@ -65,6 +65,17 @@ describe('Stories and Contributions', () => {
     assert.equal(minContribution, '500000000000000')
   });
 });
+
+describe("Get Summary", () => {
+  it("get summary", async () => {
+    const summary = await story.methods.getSummary().call();
+    console.log(summary);
+
+    assert.equal(summary[0].length, 1)
+    assert.equal(summary[1], '250000000000000')
+    assert.equal(summary[2], accounts[0])
+  })
+})
 
 describe ('Voting', () => {
   it("do not allow non-contributors to vote", async() => {
