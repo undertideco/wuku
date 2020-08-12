@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha",
     "start": "node server.js",
+    "compile": "node ethereum/compile.js",
     "deploy-factory": "node ethereum/deploy.js"
   },
   "repository": {
