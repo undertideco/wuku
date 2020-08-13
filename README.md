@@ -34,7 +34,7 @@ Wuku is a word-game designed to be built on top of the Ethereum blockchain. The 
 3. Tweet it
 ![image](https://user-images.githubusercontent.com/5944973/90185320-642aff00-dd6b-11ea-866f-30de1e6fa6d8.png)
 4. Copy the link to the tweet into https://faucet.rinkeby.io/
-![image](https://user-images.githubusercontent.com/5944973/90185324-668d5900-dd6b-11ea-8ea1-a7612bd0bab7.png)
+![image](https://user-images.githubusercontent.com/5944973/90185920-398d7600-dd6c-11ea-9936-b8d13283303e.png)
 5. Voila! Ether!
 
 ### Starting the app
