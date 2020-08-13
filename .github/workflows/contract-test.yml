@@ -19,5 +19,5 @@ jobs:
         with:
           node-version: '12'
       - run: yarn
-      - run: yarn compile
+      - run: yarn compile test
       - run: yarn test
