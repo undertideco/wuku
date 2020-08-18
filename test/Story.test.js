@@ -64,6 +64,13 @@ describe('Stories and Contributions', () => {
     assert.equal(contribution.contributor, accounts[1]);
     assert.equal(minContribution, '500000000000000')
   });
+
+  it('sets current block time as created time', async() => {
+    const createdTime = await story.methods.createdTime().call();
+    const latestBlock = await web3.eth.getBlock('latest')
+
+    assert.equal(createdTime, latestBlock.timestamp);
+  });
 });
 
 describe("Get Summary", () => {

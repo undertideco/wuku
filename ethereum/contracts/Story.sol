@@ -25,7 +25,8 @@ contract Story {
         address contributor;
         address[] votes;
     }
-    
+
+    uint public createdTime;
     uint minimumContribution = 250000000000000;
     address public host;
     Contribution[] public contributions;
@@ -38,7 +39,8 @@ contract Story {
            amount: startingAmount,
            votes: new address[](0)
         });
-        
+
+        createdTime = block.timestamp;
         contributions.push(newContribution);
         voters[storyCreator] = true;
 
