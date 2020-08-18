@@ -48,6 +48,7 @@ contract Story {
     }
     
     function createContribution(string memory description) public payable {
+        require(!hasClosedForContributions(), 'Contribution window has closed!');
         require(msg.sender != host);
         require(msg.value == minimumContribution);
 
@@ -92,5 +93,9 @@ contract Story {
         minimumContribution,
         host
       );
+    }
+
+    function hasClosedForContributions() public view returns (bool) {
+      return (block.timestamp - createdTime) >= 3 days;
     }
 }

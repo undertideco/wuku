@@ -3,6 +3,7 @@ const ganache = require('ganache-cli');
 const Web3 = require('web3');
 const web3 = new Web3(ganache.provider());
 
+const { advanceTimeAndBlock } = require('./helpers/timeUtils');
 const compiledFactory = require('../ethereum/build/test/StoryFactory.json');
 const compiledStory = require('../ethereum/build/test/Story.json');
 
@@ -84,7 +85,7 @@ describe("Get Summary", () => {
   })
 })
 
-describe ('Voting', () => {
+describe("Voting", () => {
   it("do not allow non-contributors to vote", async() => {
     try {
       await story.methods.voteContribution(0).send({
@@ -111,5 +112,17 @@ describe ('Voting', () => {
     const voteCount = await story.methods.getContributionVoteCount(1).call();
     
     assert.equal(voteCount, 1);
+  });
+});
+
+const SECONDS_IN_DAY = 86400;
+
+describe("Expire Contributions", () => {
+  it("close story from contributions after 3 days", async() => {
+    await advanceTimeAndBlock(web3, SECONDS_IN_DAY * 3)
+
+    const hasClosed = await story.methods.hasClosedForContributions().call();
+
+    assert(hasClosed);
   });
 });
