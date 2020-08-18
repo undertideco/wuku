@@ -125,4 +125,12 @@ describe("Expire Contributions", () => {
 
     assert(hasClosed);
   });
+
+  it("close story from voting after 4 days", async() => {
+    await advanceTimeAndBlock(web3, SECONDS_IN_DAY * 4)
+
+    const hasClosed = await story.methods.hasClosedForVoting().call();
+
+    assert(hasClosed); 
+  })
 });

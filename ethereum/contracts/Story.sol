@@ -66,11 +66,11 @@ contract Story {
     }
 
     function voteContribution(uint index) public {
-      Contribution storage contribution = contributions[index];
+        require(!hasClosedForVoting(), "Voting window has closed!");
+        require(voters[msg.sender]);
 
-      require(voters[msg.sender]);
-
-      contribution.votes.push(msg.sender);
+        Contribution storage contribution = contributions[index];
+        contribution.votes.push(msg.sender);
     }
 
     function getContributionVoteCount(uint index) public view returns(uint) {
@@ -97,5 +97,9 @@ contract Story {
 
     function hasClosedForContributions() public view returns (bool) {
       return (block.timestamp - createdTime) >= 3 days;
+    }
+
+    function hasClosedForVoting() public view returns (bool) {
+        return (block.timestamp - createdTime) >= 4 days;
     }
 }
