@@ -48,6 +48,12 @@ describe('Stories and Contributions', () => {
     assert(approvedVoter);
   });
 
+  it('marks initial contribution as highest voted', async() => {
+    const highestVotedContribution = await story.methods.getHighestVotedContribution().call();
+
+    assert.equal(highestVotedContribution.description, 'test story')
+  });
+
   it("allow people to make story contribution, increase the minimum contribution", async () => {
     await story.methods.createContribution('first contribution').send({
       value: '250000000000000',
@@ -77,7 +83,6 @@ describe('Stories and Contributions', () => {
 describe("Get Summary", () => {
   it("get summary", async () => {
     const summary = await story.methods.getSummary().call();
-    console.log(summary);
 
     assert.equal(summary[0].length, 1)
     assert.equal(summary[1], '250000000000000')
@@ -97,8 +102,10 @@ describe("Voting", () => {
     }
   });
 
-  it('allow contributors to vote', async() => {
-    await story.methods.createContribution('first contribution').send({
+  it('allow contributors to vote and change highest voted contribution index', async() => {
+    const contributionString = "first contribution"
+
+    await story.methods.createContribution(contributionString).send({
       value: '250000000000000',
       from: accounts[1],
       gas: '3000000'
@@ -110,8 +117,10 @@ describe("Voting", () => {
     });
 
     const voteCount = await story.methods.getContributionVoteCount(1).call();
-    
+    const highestVotedContribution = await story.methods.getHighestVotedContribution().call();
+     
     assert.equal(voteCount, 1);
+    assert.equal(highestVotedContribution.description, contributionString);
   });
 });
 

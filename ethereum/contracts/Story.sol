@@ -27,10 +27,12 @@ contract Story {
     }
 
     uint public createdTime;
-    uint minimumContribution = 250000000000000;
     address public host;
     Contribution[] public contributions;
     mapping(address => bool) public voters;
+    // FIXME: Since first contribution will always be haiku opener, it will remain the "winner" until another contribution has a vote
+    uint highestVotedContributionIndex = 0;
+    uint minimumContribution = 250000000000000; 
     
     constructor (string memory startText, address storyCreator, uint startingAmount) payable {        
         Contribution memory newContribution = Contribution({
@@ -71,6 +73,19 @@ contract Story {
 
         Contribution storage contribution = contributions[index];
         contribution.votes.push(msg.sender);
+
+        if (highestVotedContributionIndex == 0) {
+            highestVotedContributionIndex = index;          
+        } else {
+            Contribution memory highestVotedContribution = contributions[highestVotedContributionIndex];
+            if (highestVotedContribution.votes.length < contribution.votes.length) {
+                highestVotedContributionIndex = index;
+            }
+        }
+    }
+
+    function getHighestVotedContribution() public view returns(Contribution memory) {
+        return contributions[highestVotedContributionIndex];
     }
 
     function getContributionVoteCount(uint index) public view returns(uint) {
