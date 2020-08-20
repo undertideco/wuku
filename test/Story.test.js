@@ -143,3 +143,62 @@ describe("Expire Contributions", () => {
     assert(hasClosed); 
   })
 });
+
+describe('Finalize Story Contract', () => {
+  it('finalize story and distribute winnings', async() => {
+    const contributionString = "first contribution";
+
+    await story.methods.createContribution(contributionString).send({
+      value: '250000000000000',
+      from: accounts[1],
+      gas: '3000000'
+    });
+
+    await story.methods.voteContribution(1).send({
+      from: accounts[0],
+      gas: '3000000'
+    });
+
+    const totalPrizePool = await web3.eth.getBalance(story.options.address);
+    const winnerPayout = totalPrizePool * 0.7;
+    const winnerWalletBalance = await web3.eth.getBalance(accounts[1]);
+
+    await advanceTimeAndBlock(web3, SECONDS_IN_DAY * 4);
+
+    try {
+      const result = await story.methods.finalize().send({
+        from: accounts[0]
+      });
+      assert(true);
+    } catch(err) {
+      assert(false, err);
+    }
+
+    const newWinnerWalletBalance = await web3.eth.getBalance(accounts[1]);
+    assert.equal(parseInt(newWinnerWalletBalance, 10), parseInt(winnerWalletBalance) + parseInt(winnerPayout));
+  });
+
+  it('only allow story to finalize after voting is closed', async () => {
+    try {
+      await story.methods.finalize().send({
+        from: accounts[0]
+      });
+      assert(false);
+    } catch(err) {
+      assert(err);
+    }
+  });
+
+  it('only story host should be allowed to finalize story', async () => {
+    await advanceTimeAndBlock(web3, SECONDS_IN_DAY * 4);
+    
+    try {
+      await story.methods.finalize().send({
+        from: accounts[1]
+      });
+      assert(false);
+    } catch(err) {
+      assert(err);
+    }
+  });
+})

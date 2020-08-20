@@ -84,6 +84,24 @@ contract Story {
         }
     }
 
+    function finalize() public hostOnly {
+        require(hasClosedForVoting());
+        require(hasClosedForContributions());
+
+        Contribution memory winningContribution = contributions[highestVotedContributionIndex];
+        address payable winningWallet = payable(winningContribution.contributor);
+
+        uint winningShare = address(this).balance * 70 / 100;
+        winningWallet.transfer(winningShare);
+        
+        msg.sender.transfer(address(this).balance);
+    }
+
+    modifier hostOnly() {
+        require(msg.sender == host, 'Only story host can make this operation');
+        _;
+    }
+
     function getHighestVotedContribution() public view returns(Contribution memory) {
         return contributions[highestVotedContributionIndex];
     }
