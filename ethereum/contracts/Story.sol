@@ -72,6 +72,7 @@ contract Story {
         require(voters[msg.sender]);
 
         Contribution storage contribution = contributions[index];
+        require(msg.sender != contribution.contributor, "User not allowed to vote for their own contribution");
         contribution.votes.push(msg.sender);
 
         if (highestVotedContributionIndex == 0) {

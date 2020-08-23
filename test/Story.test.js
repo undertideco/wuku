@@ -122,6 +122,28 @@ describe("Voting", () => {
     assert.equal(voteCount, 1);
     assert.equal(highestVotedContribution.description, contributionString);
   });
+
+  it('do not allow users to vote for their own contribution', async() => {
+    const errorString = "User not allowed to vote for their own contribution";
+    await story.methods.createContribution("some contribution").send({
+      value: '250000000000000',
+      from: accounts[1],
+      gas: '3000000'
+    })
+
+    try {
+      await story.methods.voteContribution(1).send({
+        from: accounts[1],
+        gas: '3000000'
+      })
+      assert(false);
+    } catch(err) {
+      const errReason = Object.values(err["results"])[0]["reason"];
+
+      assert(err);
+      assert.equal(errReason, errorString);
+    }
+  });
 });
 
 const SECONDS_IN_DAY = 86400;
