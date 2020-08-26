@@ -78,6 +78,17 @@ describe('Stories and Contributions', () => {
 
     assert.equal(createdTime, latestBlock.timestamp);
   });
+
+  it('return user as contributor', async () => {
+    await story.methods.createContribution('first contribution').send({
+      value: '250000000000000',
+      from: accounts[1],
+      gas: '3000000'
+    });
+ 
+    const isContributor = await story.methods.isContributor(accounts[1]).call();
+    assert(isContributor)
+  })
 });
 
 describe("Get Summary", () => {

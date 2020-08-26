@@ -136,4 +136,8 @@ contract Story {
     function hasClosedForVoting() public view returns (bool) {
         return (block.timestamp - createdTime) >= 4 days;
     }
+
+    function isContributor(address addr) public view returns (bool) {
+      return voters[addr];
+    }
 }
