@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
+import dynamic from 'next/dynamic';
 import { Card, Button } from 'semantic-ui-react';
 
 import { Link } from '../routes'
 import factory from '../ethereum/factory';
 import Layout from '../components/Layout';
+
+const MyContributions = dynamic(
+  () => import('../components/ContributedStories'),
+  { ssr: false }
+);
 
 class StoryIndex extends Component {
   static async getInitialProps() {
@@ -31,6 +37,10 @@ class StoryIndex extends Component {
   render() {
     return (
       <Layout>
+        <div>
+          <h3>Your Stories</h3>
+          <MyContributions stories={this.props.stories} />
+        </div>
         <div>
           <h3>Open Stories</h3>
 
