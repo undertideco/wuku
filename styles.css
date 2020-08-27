@@ -1,0 +1,22 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  color: #616060;
+  background-color: #FBF9F8;
+}
+
+html, body {
+  margin: 0px;
+  padding: 0px;
+}
+
+html, input, textarea, button {
+  font-family: "EB Garamond", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+}
