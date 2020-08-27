@@ -1,30 +1,66 @@
 import React from 'react';
-import { Menu } from 'semantic-ui-react';
+import styled from 'styled-components'
+
 import { Link } from '../routes';
+
+const NavBarContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  top: 0px;
+  position: absolute;
+  align-items: flex-start;
+  padding: 2rem 2rem;
+`;
+
+const LogoContainer = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const LinksContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  & > *:not(:first-child) {
+    margin-left: 0.5rem;
+  }
+`
+
+const LinkText = styled.a`
+  font-size: 1.25em;
+  line-height: 150%;
+  text-decoration: none;
+`
 
 const Header = () => {
   return (
-    <Menu style={{ marginTop: '10px' }}>
-    <Link route='/'>
-      <a className="item">
-        Wuku
-      </a>
-    </Link>
+    <NavBarContainer>
+      <LogoContainer>
+        <Link route='/'>
+          <a>
+            <img src="/logo-horizontal.svg" alt="app logo" />
+          </a>
+        </Link>
+      </LogoContainer>
 
-    <Menu.Menu position="right">
-      <Link route="/">
-        <a className="item">
-          Stories
-        </a>
-      </Link>
-
-      <Link route="/">
-        <a className="item">
-          +
-        </a>
-      </Link>
-    </Menu.Menu>
-  </Menu>
+      <LinksContainer>
+        <Link route="/" passHref>
+          <LinkText>ongoing</LinkText>
+        </Link>
+        <Link route="/" passHref>
+          <LinkText>voting</LinkText>
+        </Link>
+        <Link route="/" passHref>
+          <LinkText>complete</LinkText>
+        </Link>
+        <Link route="/" passHref>
+          <LinkText>+new</LinkText>
+        </Link>
+      </LinksContainer>
+  </NavBarContainer>
   );
 };
 
