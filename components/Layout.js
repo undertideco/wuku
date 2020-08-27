@@ -1,18 +1,47 @@
 import React from 'react';
-import { Container } from 'semantic-ui-react';
+import styled from 'styled-components';
 import Head from 'next/head';
+
 import Header from './Header'
+
+const MainContainer = styled.div`
+  display: flex;
+  align-items: flex-start;
+  flex-flow: column;
+`;
+
+const HeaderContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  flex-flow: row nowrap;
+`
+
+const ContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-top: 100px;
+  align-items: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 1;
+  flex: 1 1 0%; 
+`
 
 const Layout = props => {
   return (
-    <Container>
+    <MainContainer>
       <Head>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/>
+        <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600&display=swap" rel="stylesheet" />
       </Head>
-      
-      <Header />
-      {props.children}
-    </Container>
+      <HeaderContainer>
+        <Header />
+      </HeaderContainer>
+      <ContentContainer>
+        {props.children}
+      </ContentContainer>
+    </MainContainer>
   );
 };
 
