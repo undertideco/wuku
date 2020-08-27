@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Head from 'next/head';
 
-import Header from './Header'
+import Theme from './Theme';
+import Header from './Header';
 
 const MainContainer = styled.div`
   display: flex;
@@ -31,7 +32,8 @@ const ContentContainer = styled.div`
 
 const Layout = props => {
   return (
-    <MainContainer>
+    <Theme>
+      <MainContainer>
       <Head>
         <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600&display=swap" rel="stylesheet" />
       </Head>
@@ -41,7 +43,8 @@ const Layout = props => {
       <ContentContainer>
         {props.children}
       </ContentContainer>
-    </MainContainer>
+     </MainContainer>
+    </Theme>
   );
 };
 
