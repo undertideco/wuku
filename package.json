@@ -31,6 +31,10 @@
     "react-dom": "^16.13.1",
     "semantic-ui-react": "^1.1.1",
     "solc": "^0.7.0",
+    "styled-components": "^5.1.1",
     "web3": "^1.2.11"
+  },
+  "devDependencies": {
+    "babel-plugin-styled-components": "^1.11.1"
   }
 }

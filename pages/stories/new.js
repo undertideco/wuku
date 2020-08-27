@@ -24,7 +24,7 @@ class StoryNew extends Component {
       const accounts = await web3.eth.getAccounts();
       const payload = {
         from: accounts[0],
-        gas: '1000000',
+        gas: '2000000',
         value: Web3.utils.toWei(this.state.startingPrizePool, 'ether')
       }
 
