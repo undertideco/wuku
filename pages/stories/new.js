@@ -12,10 +12,10 @@ class StoryNew extends Component {
     startingPrizePool: '',
     contributionText: '',
     errorMessage: '',
-    loading: false
-  }
+    loading: false,
+  };
 
-  submitForm = async event => {
+  submitForm = async (event) => {
     event.preventDefault();
 
     this.setState({ loading: true, errorMessage: '' });
@@ -25,11 +25,13 @@ class StoryNew extends Component {
       const payload = {
         from: accounts[0],
         gas: '2000000',
-        value: Web3.utils.toWei(this.state.startingPrizePool, 'ether')
-      }
+        value: Web3.utils.toWei(this.state.startingPrizePool, 'ether'),
+      };
 
       console.log(payload);
-      await factory.methods.createStory(this.state.contributionText).send(payload);
+      await factory.methods
+        .createStory(this.state.contributionText)
+        .send(payload);
 
       Router.pushRoute('/');
     } catch (err) {
@@ -37,7 +39,7 @@ class StoryNew extends Component {
     }
 
     this.setState({ loading: false });
-  }
+  };
 
   render() {
     return (
@@ -47,21 +49,23 @@ class StoryNew extends Component {
         <Form onSubmit={this.submitForm} error={!!this.state.errorMessage}>
           <Form.Field>
             <label>Starting Prize Pool</label>
-            <Input 
+            <Input
               label="ether"
               labelPosition="right"
               value={this.state.startingPrizePool}
-              onChange={event =>
-                this.setState({ startingPrizePool: event.target.value })}
+              onChange={(event) =>
+                this.setState({ startingPrizePool: event.target.value })
+              }
             />
           </Form.Field>
           <Form.Field
-            label='Starting Text'
-            placeholder='This is my story'
+            label="Starting Text"
+            placeholder="This is my story"
             value={this.state.contributionText}
             control={TextArea}
-            onChange={event =>
-              this.setState({ contributionText: event.target.value })}
+            onChange={(event) =>
+              this.setState({ contributionText: event.target.value })
+            }
           />
 
           <Message error header="Oops!" content={this.state.errorMessage} />
@@ -70,7 +74,7 @@ class StoryNew extends Component {
           </Button>
         </Form>
       </Layout>
-    )
+    );
   }
 }
 

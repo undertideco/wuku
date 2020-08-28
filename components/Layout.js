@@ -16,7 +16,7 @@ const HeaderContainer = styled.div`
   width: 100%;
   justify-content: space-between;
   flex-flow: row nowrap;
-`
+`;
 
 const ContentContainer = styled.div`
   display: flex;
@@ -27,23 +27,24 @@ const ContentContainer = styled.div`
   overflow-y: auto;
   overflow-x: hidden;
   z-index: 1;
-  flex: 1 1 0%; 
-`
+  flex: 1 1 0%;
+`;
 
-const Layout = props => {
+const Layout = (props) => {
   return (
     <Theme>
       <MainContainer>
-      <Head>
-        <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&family=Inter:wght@700&display=swap" rel="stylesheet" />
-      </Head>
-      <HeaderContainer>
-        <Header />
-      </HeaderContainer>
-      <ContentContainer>
-        {props.children}
-      </ContentContainer>
-     </MainContainer>
+        <Head>
+          <link
+            href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&family=Inter:wght@700&display=swap"
+            rel="stylesheet"
+          />
+        </Head>
+        <HeaderContainer>
+          <Header />
+        </HeaderContainer>
+        <ContentContainer>{props.children}</ContentContainer>
+      </MainContainer>
     </Theme>
   );
 };

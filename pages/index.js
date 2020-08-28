@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 
-import { Link } from '../routes'
+import { Link } from '../routes';
 import factory from '../ethereum/factory';
 import Layout from '../components/Layout';
 import Feed from '../components/Feed/Stories';
@@ -41,7 +41,7 @@ class StoryIndex extends Component {
           <Feed stories={this.props.stories} />
         </StoriesContainer>
       </Layout>
-    )
+    );
   }
 }
 

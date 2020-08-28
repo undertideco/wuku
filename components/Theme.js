@@ -10,12 +10,12 @@ const theme = {
     background: '#E5E5E5',
     minorHeader: '#CCCCCC',
   },
-  serifFontStack: ['EB Garamond', "sans-serif"],
-  sansSerifFontStack: ['Inter']
-}
+  serifFontStack: ['EB Garamond', 'sans-serif'],
+  sansSerifFontStack: ['Inter'],
+};
 
 const Theme = ({ children }) => (
-  <ThemeProvider theme={theme}>{children}</ThemeProvider>
+  <ThemeProvider theme={theme}> {children} </ThemeProvider>
 );
 
 export default Theme;

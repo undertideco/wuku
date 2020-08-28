@@ -10,14 +10,14 @@ class StoryShow extends Component {
   state = {
     contributionText: '',
     errorMessage: '',
-    loading: false
+    loading: false,
   };
 
   static async getInitialProps(props) {
     const story = Story(props.query.address);
 
     const summary = await story.methods.getSummary().call();
-    const storySoFar = summary[0].map(story => story.description).join(' ');
+    const storySoFar = summary[0].map((story) => story.description).join(' ');
     const minimumContribution = summary[1];
     const host = summary[2];
 
@@ -25,7 +25,7 @@ class StoryShow extends Component {
       address: props.query.address,
       storySoFar,
       host,
-      minimumContribution
+      minimumContribution,
     };
   }
 
@@ -39,18 +39,20 @@ class StoryShow extends Component {
       const payload = {
         from: accounts[0],
         gas: '2000000',
-        value: this.props.minimumContribution
-      }
+        value: this.props.minimumContribution,
+      };
 
-      await Story(this.props.address).methods.createContribution(this.state.contributionText).send(payload);
+      await Story(this.props.address)
+        .methods.createContribution(this.state.contributionText)
+        .send(payload);
 
-      Router.reload(window.location.pathname);;
+      Router.reload(window.location.pathname);
     } catch (err) {
       this.setState({ errorMessage: err.message });
     }
 
     this.setState({ loading: false });
-  }
+  };
 
   render() {
     return (
@@ -61,15 +63,19 @@ class StoryShow extends Component {
           <span>{`Contribution Price: ${this.props.minimumContribution}`}</span>
           <p>{this.props.storySoFar}</p>
         </div>
-        
-        <Form onSubmit={this.submitContribution} error={!!this.state.errorMessage}>
+
+        <Form
+          onSubmit={this.submitContribution}
+          error={!!this.state.errorMessage}
+        >
           <Form.Field
-            label='Contribution'
-            placeholder='This is my contribution'
+            label="Contribution"
+            placeholder="This is my contribution"
             value={this.state.contributionText}
             control={TextArea}
-            onChange={event =>
-              this.setState({ contributionText: event.target.value })}
+            onChange={(event) =>
+              this.setState({ contributionText: event.target.value })
+            }
           />
 
           <Message error header="Oops!" content={this.state.errorMessage} />
@@ -77,8 +83,8 @@ class StoryShow extends Component {
             Add Contribution!
           </Button>
         </Form>
-      </Layout>  
-    )
+      </Layout>
+    );
   }
 }
 

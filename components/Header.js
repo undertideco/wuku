@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 import { Link } from '../routes';
 
@@ -17,7 +17,7 @@ const NavBarContainer = styled.div`
 const LogoContainer = styled.div`
   display: flex;
   align-items: center;
-`
+`;
 
 const LinksContainer = styled.div`
   display: flex;
@@ -27,7 +27,7 @@ const LinksContainer = styled.div`
   & > *:not(:first-child) {
     margin-left: 0.5rem;
   }
-`
+`;
 
 const LinkText = styled.a`
   font-size: 1.25em;
@@ -40,7 +40,7 @@ const Header = () => {
   return (
     <NavBarContainer>
       <LogoContainer>
-        <Link route='/'>
+        <Link route="/">
           <a>
             <img src="/logo-horizontal.svg" alt="app logo" />
           </a>
@@ -61,7 +61,7 @@ const Header = () => {
           <LinkText>+new</LinkText>
         </Link>
       </LinksContainer>
-  </NavBarContainer>
+    </NavBarContainer>
   );
 };
 
