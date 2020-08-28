@@ -51,12 +51,23 @@ const DaysLeftContainer = styled.div`
   font-weight: bold;
   align-self: flex-end;
   border-radius: 0px 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `
+
+const ClockIcon = styled(FontAwesomeIcon)`
+  width: 16px;
+  height: 16px;
+
+  path {
+    fill: white;
+  }
+`;
 
 const DaysLeftText = styled.small`
   font-family: ${props => props.theme.sansSerifFontStack[0]};
   font-size: 0.75em;
-  width: 114px;
   color: white;
 `
 
@@ -73,7 +84,8 @@ function FeedItem({ story }) {
     <Container>
       <ContentContainer>
         <DaysLeftContainer>
-          <DaysLeftText><FontAwesomeIcon icon={faClock} style={{marginRight: "8px"}}/>1 DAY LEFT</DaysLeftText>
+          <ClockIcon icon={faClock} style={{marginRight: "8px"}}/>
+          <DaysLeftText>1 DAY LEFT</DaysLeftText>
         </DaysLeftContainer>
         <HaikuText>"An old silent pond, A frog jumps into the pond</HaikuText>
       </ContentContainer>
