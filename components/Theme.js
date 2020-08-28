@@ -8,8 +8,10 @@ const theme = {
     primaryText: '#494850',
     secondaryText: '#353535',
     background: '#E5E5E5',
+    minorHeader: '#CCCCCC',
   },
-  fonts: ['EB Garamond', "sans-serif"]
+  serifFontStack: ['EB Garamond', "sans-serif"],
+  sansSerifFontStack: ['Inter']
 }
 
 const Theme = ({ children }) => (
