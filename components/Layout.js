@@ -35,7 +35,7 @@ const Layout = props => {
     <Theme>
       <MainContainer>
       <Head>
-        <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&family=Inter:wght@700&display=swap" rel="stylesheet" />
       </Head>
       <HeaderContainer>
         <Header />
