@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Card } from 'semantic-ui-react';
 
-import { Link } from '../routes';
-import Story from '../ethereum/story';
-import web3 from '../ethereum/web3';
+import { Link } from '../../routes';
+import Story from '../../ethereum/story';
+import web3 from '../../ethereum/web3';
 
 class ContributedStories extends Component {
   state = {

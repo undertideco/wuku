@@ -33,6 +33,7 @@ const LinkText = styled.a`
   font-size: 1.25em;
   line-height: 150%;
   text-decoration: none;
+  color: ${props => props.theme.colors.secondaryText};
 `
 
 const Header = () => {

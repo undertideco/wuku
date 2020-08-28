@@ -1,15 +1,29 @@
 import React, { Component } from 'react';
 import dynamic from 'next/dynamic';
-import { Card, Button } from 'semantic-ui-react';
+import styled from 'styled-components';
 
 import { Link } from '../routes'
 import factory from '../ethereum/factory';
 import Layout from '../components/Layout';
+import Feed from '../components/Feed/Stories';
 
 const MyContributions = dynamic(
-  () => import('../components/ContributedStories'),
+  () => import('../components/Feed/ContributedStories'),
   { ssr: false }
 );
+
+const StoriesContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0rem 2rem;
+`;
+
+const SectionHeading = styled.h1`
+  font-family: ${props => props.theme.sansSerifFontStack[0]};
+  flex-grow: 1;
+  font-size: 2em;
+`;
 
 class StoryIndex extends Component {
   static async getInitialProps() {
@@ -18,45 +32,14 @@ class StoryIndex extends Component {
     return { stories };
   }
 
-  renderStories() {
-    const stories = this.props.stories.map(addr => {
-      return {
-        header: addr,
-        description: (
-          <Link route={`/stories/${addr}`}>
-            <a>View Story</a>
-          </Link>
-        ),
-        fluid: true
-      };
-    });
-
-    return <Card.Group items={stories} />;
-  }
-
   render() {
+    console.log(this.props.stories);
     return (
       <Layout>
-        <div>
-          <h3>Your Stories</h3>
-          <MyContributions stories={this.props.stories} />
-        </div>
-        <div>
-          <h3>Open Stories</h3>
-
-          <Link route="/stories/new">
-            <a>
-              <Button 
-                floated="right"
-                content="Create Story"
-                icon="add circle"
-                primary
-              />
-            </a>
-          </Link>
-
-          {this.renderStories()}
-        </div>
+        <StoriesContainer>
+          <SectionHeading>Ongoing Haikus</SectionHeading>
+          <Feed stories={this.props.stories} />
+        </StoriesContainer>
       </Layout>
     )
   }
