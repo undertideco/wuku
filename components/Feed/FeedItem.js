@@ -1,4 +1,7 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faClock } from '@fortawesome/free-solid-svg-icons'
+
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -70,7 +73,7 @@ function FeedItem({ story }) {
     <Container>
       <ContentContainer>
         <DaysLeftContainer>
-          <DaysLeftText>1 DAY LEFT</DaysLeftText>
+          <DaysLeftText><FontAwesomeIcon icon={faClock} style={{marginRight: "8px"}}/>1 DAY LEFT</DaysLeftText>
         </DaysLeftContainer>
         <HaikuText>"An old silent pond, A frog jumps into the pond</HaikuText>
       </ContentContainer>
@@ -81,7 +84,7 @@ function FeedItem({ story }) {
         </AttributeContainer>
         <AttributeContainer>
           <MetaHeader>PRIZE POOL</MetaHeader>
-          <MetaValue>2.5ETH</MetaValue>
+          <MetaValue>2.5 ETH</MetaValue>
         </AttributeContainer>
       </MetaContainer>
     </Container>
