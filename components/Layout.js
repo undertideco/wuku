@@ -1,9 +1,9 @@
+import Head from 'next/head';
 import React from 'react';
 import styled from 'styled-components';
-import Head from 'next/head';
 
-import Theme from './Theme';
 import Header from './Header';
+import Theme from './Theme';
 
 const MainContainer = styled.div`
   display: flex;
@@ -16,6 +16,7 @@ const HeaderContainer = styled.div`
   width: 100%;
   justify-content: space-between;
   flex-flow: row nowrap;
+  box-pack: justify;
 `;
 
 const ContentContainer = styled.div`

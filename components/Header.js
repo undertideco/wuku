@@ -9,7 +9,6 @@ const NavBarContainer = styled.div`
   justify-content: space-between;
   width: 100%;
   top: 0px;
-  position: absolute;
   align-items: flex-start;
   padding: 2rem 2rem;
 `;
@@ -33,8 +32,8 @@ const LinkText = styled.a`
   font-size: 1.25em;
   line-height: 150%;
   text-decoration: none;
-  color: ${props => props.theme.colors.secondaryText};
-`
+  color: ${(props) => props.theme.colors.secondaryText};
+`;
 
 const Header = () => {
   return (

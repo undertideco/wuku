@@ -6,14 +6,19 @@ html {
   font-size: 16px;
   color: #616060;
   background-color: #FBF9F8;
+  font-variant: no-common-ligatures no-discretionary-ligatures no-historical-ligatures no-contextual;
 }
 
-html, body {
+html,
+body {
   margin: 0px;
   padding: 0px;
 }
 
-html, input, textarea, button {
+html,
+input,
+textarea,
+button {
   font-family: "EB Garamond", sans-serif;
 }
 

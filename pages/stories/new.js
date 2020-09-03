@@ -28,7 +28,6 @@ class StoryNew extends Component {
         value: Web3.utils.toWei(this.state.startingPrizePool, 'ether'),
       };
 
-      console.log(payload);
       await factory.methods
         .createStory(this.state.contributionText)
         .send(payload);

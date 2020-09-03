@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
 import dynamic from 'next/dynamic';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import { Link } from '../routes';
-import factory from '../ethereum/factory';
-import Layout from '../components/Layout';
 import Feed from '../components/Feed/Stories';
+import Layout from '../components/Layout';
+import factory from '../ethereum/factory';
 
 const MyContributions = dynamic(
   () => import('../components/Feed/ContributedStories'),
@@ -20,7 +19,7 @@ const StoriesContainer = styled.div`
 `;
 
 const SectionHeading = styled.h1`
-  font-family: ${props => props.theme.sansSerifFontStack[0]};
+  font-family: ${(props) => props.theme.sansSerifFontStack[0]};
   flex-grow: 1;
   font-size: 2em;
 `;
@@ -33,7 +32,6 @@ class StoryIndex extends Component {
   }
 
   render() {
-    console.log(this.props.stories);
     return (
       <Layout>
         <StoriesContainer>
