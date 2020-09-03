@@ -1,25 +1,27 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClock } from '@fortawesome/free-solid-svg-icons'
-
+import { faClock } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import Web3 from 'web3';
+
+import Story from '../../ethereum/story';
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
 
 const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   background: white;
   border-radius: 5px 5px 0px 0px;
-`
+`;
 const MetaContainer = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  background: ${props => props.theme.colors.primary};
+  background: ${(props) => props.theme.colors.primary};
   padding: 0.5rem 1rem;
   border-radius: 0px 0px 5px 5px;
 
@@ -31,22 +33,22 @@ const MetaContainer = styled.div`
 const AttributeContainer = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
 
 const MetaHeader = styled.span`
-  font-family: ${props => props.theme.sansSerifFontStack[0]};
-  color: ${props => props.theme.colors.minorHeader};
+  font-family: ${(props) => props.theme.sansSerifFontStack[0]};
+  color: ${(props) => props.theme.colors.minorHeader};
   font-weight: bold;
   font-size: 0.7em;
-`
+`;
 
 const MetaValue = styled.span`
-  font-family: ${props => props.theme.sansSerifFontStack[0]};
+  font-family: ${(props) => props.theme.sansSerifFontStack[0]};
   font-size: 1.25em;
-`
+`;
 
 const DaysLeftContainer = styled.div`
-  background: ${props => props.theme.colors.secondary};
+  background: ${(props) => props.theme.colors.secondary};
   padding: 0.5rem 1rem;
   font-weight: bold;
   align-self: flex-end;
@@ -54,7 +56,7 @@ const DaysLeftContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-`
+`;
 
 const ClockIcon = styled(FontAwesomeIcon)`
   width: 16px;
@@ -66,10 +68,10 @@ const ClockIcon = styled(FontAwesomeIcon)`
 `;
 
 const DaysLeftText = styled.small`
-  font-family: ${props => props.theme.sansSerifFontStack[0]};
+  font-family: ${(props) => props.theme.sansSerifFontStack[0]};
   font-size: 0.75em;
   color: white;
-`
+`;
 
 const HaikuText = styled.p`
   font-weight: bold;
@@ -77,22 +79,41 @@ const HaikuText = styled.p`
   line-height: 2em;
   padding: 0 1.875rem 1.875rem 1.875rem;
   margin: 0;
-`
+`;
 
-function FeedItem({ story }) {
+function FeedItem({ storyId }) {
+  const [storySoFar, setStorySoFar] = useState('');
+  const [minContribution, setMinContribution] = useState('');
+
+  useEffect(() => {
+    const story = Story(storyId);
+
+    const loadStoryData = async () => {
+      const storySummary = await story.methods.getSummary().call();
+      setStorySoFar(
+        storySummary[0].map((summary) => summary.description).join(' ')
+      );
+      setMinContribution(storySummary[1]);
+    };
+
+    loadStoryData();
+  });
+
   return (
     <Container>
       <ContentContainer>
         <DaysLeftContainer>
-          <ClockIcon icon={faClock} style={{marginRight: "8px"}}/>
+          <ClockIcon icon={faClock} style={{ marginRight: '8px' }} />
           <DaysLeftText>1 DAY LEFT</DaysLeftText>
         </DaysLeftContainer>
-        <HaikuText>"An old silent pond, A frog jumps into the pond</HaikuText>
+        <HaikuText>{`"${storySoFar}`}</HaikuText>
       </ContentContainer>
       <MetaContainer>
         <AttributeContainer>
           <MetaHeader>JOIN</MetaHeader>
-          <MetaValue>0.05 ETH</MetaValue>
+          <MetaValue>
+            {Web3.utils.fromWei(minContribution, 'ether')} ETH
+          </MetaValue>
         </AttributeContainer>
         <AttributeContainer>
           <MetaHeader>PRIZE POOL</MetaHeader>
