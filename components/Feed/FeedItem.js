@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Web3 from 'web3';
 
 import Story from '../../ethereum/story';
+import web3 from '../../ethereum/web3';
 
 const Container = styled.div`
   display: flex;
@@ -84,16 +85,18 @@ const HaikuText = styled.p`
 function FeedItem({ storyId }) {
   const [storySoFar, setStorySoFar] = useState('');
   const [minContribution, setMinContribution] = useState('');
+  const [prizePool, setPrizePool] = useState(0);
 
   useEffect(() => {
-    const story = Story(storyId);
-
     const loadStoryData = async () => {
+      const story = Story(storyId);
       const storySummary = await story.methods.getSummary().call();
+
       setStorySoFar(
         storySummary[0].map((summary) => summary.description).join(' ')
       );
       setMinContribution(storySummary[1]);
+      setPrizePool(await web3.eth.getBalance(story.options.address));
     };
 
     loadStoryData();
@@ -117,7 +120,7 @@ function FeedItem({ storyId }) {
         </AttributeContainer>
         <AttributeContainer>
           <MetaHeader>PRIZE POOL</MetaHeader>
-          <MetaValue>2.5 ETH</MetaValue>
+          <MetaValue>{Web3.utils.fromWei(prizePool, 'ether')} ETH</MetaValue>
         </AttributeContainer>
       </MetaContainer>
     </Container>
