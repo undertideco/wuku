@@ -121,11 +121,16 @@ contract Story {
       return contributions.length;
     }
 
-    function getSummary() public view returns(Contribution[] memory, uint, address) {
+    function getSummary() public view returns(Contribution[] memory, uint, address, uint, uint) {
+      uint contributionTimeLeft = (block.timestamp + 3 days) - createdTime;
+      uint votingTimeLeft = contributionTimeLeft + 1 days;
+
       return (
         contributions,
         minimumContribution,
-        host
+        host,
+        contributionTimeLeft,
+        votingTimeLeft
       );
     }
 

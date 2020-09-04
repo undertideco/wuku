@@ -103,10 +103,13 @@ describe('Get Summary', () => {
       gas: '3000000',
     });
     const summary = await story.methods.getSummary().call();
+    const secondsInDay = 86400;
 
     assert.equal(summary[0].length, 2);
     assert.equal(summary[1], (baseContributionValue * 2).toString());
     assert.equal(summary[2], accounts[0]);
+    assert.equal(summary[3], (secondsInDay * 3).toString());
+    assert.equal(summary[4], (secondsInDay * 4).toString());
   });
 });
 
