@@ -4,8 +4,8 @@ const Web3 = require('web3');
 const web3 = new Web3(ganache.provider());
 
 const { advanceTimeAndBlock } = require('./helpers/timeUtils');
-const compiledFactory = require('../ethereum/build/test/StoryFactory.json');
-const compiledStory = require('../ethereum/build/test/Story.json');
+const compiledFactory = require('../ethereum/build/contracts/StoryFactory.json');
+const compiledStory = require('../ethereum/build/contracts/Story.json');
 
 let accounts;
 let factory;
@@ -18,7 +18,7 @@ const baseContributionValue = 250000000000000;
 beforeEach(async () => {
   accounts = await web3.eth.getAccounts();
   factory = await new web3.eth.Contract(compiledFactory.abi)
-    .deploy({ data: compiledFactory.evm.bytecode.object })
+    .deploy({ data: compiledFactory.bytecode })
     .send({ from: accounts[0], gas: '3000000' });
 
   await factory.methods.createStory('test story').send({

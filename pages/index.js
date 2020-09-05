@@ -27,7 +27,6 @@ const SectionHeading = styled.h1`
 class StoryIndex extends Component {
   static async getInitialProps() {
     const stories = await factory.methods.getDeployedStories().call();
-
     return { stories };
   }
 

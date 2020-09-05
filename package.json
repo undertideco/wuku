@@ -4,10 +4,12 @@
   "description": "Ethereum crowd-sourcing word game",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
-    "start": "node server.js",
-    "compile": "node ethereum/compile.js",
-    "deploy-factory": "node ethereum/deploy.js"
+    "migrate": "truffle migrate",
+    "compile": "truffle compile",
+    "ganache": "ganache-cli -d",
+    "test": "yarn clean; yarn migrate && truffle test test/*",
+    "clean": "rm -rf ./ethereum/build/contracts",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -36,6 +38,7 @@
     "semantic-ui-react": "^1.1.1",
     "solc": "^0.7.0",
     "styled-components": "^5.1.1",
+    "truffle": "^5.1.43",
     "web3": "^1.2.11"
   },
   "devDependencies": {

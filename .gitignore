@@ -116,4 +116,4 @@ dist
 .pnp.*
 
 # Build Files
-build/
+ethereum/build/

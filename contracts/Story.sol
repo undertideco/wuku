@@ -2,22 +2,6 @@
 pragma solidity ^0.7.0;
 pragma experimental ABIEncoderV2;
 
-contract StoryFactory {
-    uint constant minimumStartingContribution = 13000000000000000;
-    Story[] public deployedStories;
-
-  function createStory(string memory startText) public payable {
-    require(msg.value >= minimumStartingContribution);
-    
-    Story newStory = new Story(startText, msg.sender, msg.value);
-    deployedStories.push(newStory);
-  }
-  
-  function getDeployedStories() public view returns(Story[] memory) {
-    return deployedStories;
-  }
-}
-
 contract Story {
     struct Contribution {
         string description;
@@ -90,7 +74,7 @@ contract Story {
         require(hasClosedForContributions());
 
         Contribution memory winningContribution = contributions[highestVotedContributionIndex];
-        address payable winningWallet = payable(winningContribution.contributor);
+        address payable winningWallet = address(uint160(winningContribution.contributor));
 
         uint winningShare = address(this).balance * 70 / 100;
         winningWallet.transfer(winningShare);
