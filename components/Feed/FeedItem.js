@@ -1,5 +1,6 @@
 import { faClock } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { formatDuration } from 'date-fns';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Web3 from 'web3';
@@ -86,17 +87,19 @@ function FeedItem({ storyId }) {
   const [storySoFar, setStorySoFar] = useState('');
   const [minContribution, setMinContribution] = useState('');
   const [prizePool, setPrizePool] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(3600);
 
   useEffect(() => {
     const loadStoryData = async () => {
       const story = Story(storyId);
       const storySummary = await story.methods.getSummary().call();
+      const prizePool = await web3.eth.getBalance(story.options.address);
 
       setStorySoFar(
         storySummary[0].map((summary) => summary.description).join(' ')
       );
       setMinContribution(storySummary[1]);
-      setPrizePool(await web3.eth.getBalance(story.options.address));
+      setPrizePool(prizePool);
     };
 
     loadStoryData();
@@ -107,7 +110,7 @@ function FeedItem({ storyId }) {
       <ContentContainer>
         <DaysLeftContainer>
           <ClockIcon icon={faClock} style={{ marginRight: '8px' }} />
-          <DaysLeftText>1 DAY LEFT</DaysLeftText>
+          <DaysLeftText>{formatDuration({ seconds: timeLeft })}</DaysLeftText>
         </DaysLeftContainer>
         <HaikuText>{`"${storySoFar}`}</HaikuText>
       </ContentContainer>
@@ -120,7 +123,9 @@ function FeedItem({ storyId }) {
         </AttributeContainer>
         <AttributeContainer>
           <MetaHeader>PRIZE POOL</MetaHeader>
-          <MetaValue>{Web3.utils.fromWei(prizePool, 'ether')} ETH</MetaValue>
+          <MetaValue>
+            {Web3.utils.fromWei(prizePool.toString(), 'ether')} ETH
+          </MetaValue>
         </AttributeContainer>
       </MetaContainer>
     </Container>
