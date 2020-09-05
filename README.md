@@ -23,7 +23,7 @@ Wuku is a word-game designed to be built on top of the Ethereum blockchain. The 
 
 ### Connecting to an Ethereum Node/Provider
 1. To get `SEED_PHRASE` and `PROVIDER_URL` for `.env`, you need to either run your own Ethereum node or use a provider like [Infura](https://infura.io/). The easiest solution is obviously the latter, so I recommend signing up, creating a new app, and copying the seed phrase and URL to the .env file instead.
-2. Run `yarn deploy-factory` to deploy an instance of the `StoryFactory` contract on the copy of the Ethereum blockchain that your provider is connected to. The terminal should return an address the contract is deployed to. Copy that, and paste it into `.env`
+2. Run `truffle migrate --reset --network rinkeby` to deploy an instance of the `StoryFactory` contract on the copy of the Ethereum blockchain that your provider is connected to. The terminal should return an address the contract is deployed to. Copy that, and paste it into `.env`
 3. You will never have to do the steps in this section again, unless the source of the Solidity contract changes
 4. If you already know how to get Ether from a faucet, skip the next section.
 
