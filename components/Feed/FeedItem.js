@@ -1,6 +1,6 @@
 import { faClock } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { formatDuration } from 'date-fns';
+import { add, formatDistance } from 'date-fns';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Web3 from 'web3';
@@ -87,7 +87,7 @@ function FeedItem({ storyId }) {
   const [storySoFar, setStorySoFar] = useState('');
   const [minContribution, setMinContribution] = useState('');
   const [prizePool, setPrizePool] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(3600);
+  const [timeLeft, setTimeLeft] = useState(0);
 
   useEffect(() => {
     const loadStoryData = async () => {
@@ -100,6 +100,7 @@ function FeedItem({ storyId }) {
       );
       setMinContribution(storySummary[1]);
       setPrizePool(prizePool);
+      setTimeLeft(storySummary[3]);
     };
 
     loadStoryData();
@@ -110,7 +111,13 @@ function FeedItem({ storyId }) {
       <ContentContainer>
         <DaysLeftContainer>
           <ClockIcon icon={faClock} style={{ marginRight: '8px' }} />
-          <DaysLeftText>{formatDuration({ seconds: timeLeft })}</DaysLeftText>
+          <DaysLeftText>
+            {`${formatDistance(
+              new Date(),
+              add(new Date(), { seconds: timeLeft }),
+              { includeSeconds: true }
+            )} left`}
+          </DaysLeftText>
         </DaysLeftContainer>
         <HaikuText>{`"${storySoFar}`}</HaikuText>
       </ContentContainer>

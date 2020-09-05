@@ -56,7 +56,7 @@ const Header = () => {
         <Link route="/" passHref>
           <LinkText>complete</LinkText>
         </Link>
-        <Link route="/" passHref>
+        <Link route="/stories/new" passHref>
           <LinkText>+new</LinkText>
         </Link>
       </LinksContainer>
