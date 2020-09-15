@@ -7,6 +7,7 @@ import Web3 from 'web3';
 
 import Story from '../../ethereum/story';
 import web3 from '../../ethereum/web3';
+import { Link } from '../../routes';
 
 const Container = styled.div`
   display: flex;
@@ -17,8 +18,11 @@ const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   background: white;
-  border-radius: 5px 5px 0px 0px;
+  border-radius: 7px 7px 0px 0px;
+  border: #e5e5e5 2px solid;
+  border-bottom: none;
 `;
+
 const MetaContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -107,35 +111,37 @@ function FeedItem({ storyId }) {
   });
 
   return (
-    <Container>
-      <ContentContainer>
-        <DaysLeftContainer>
-          <ClockIcon icon={faClock} style={{ marginRight: '8px' }} />
-          <DaysLeftText>
-            {`${formatDistance(
-              new Date(),
-              add(new Date(), { seconds: timeLeft }),
-              { includeSeconds: true }
-            )} left`}
-          </DaysLeftText>
-        </DaysLeftContainer>
-        <HaikuText>{`"${storySoFar}`}</HaikuText>
-      </ContentContainer>
-      <MetaContainer>
-        <AttributeContainer>
-          <MetaHeader>JOIN</MetaHeader>
-          <MetaValue>
-            {Web3.utils.fromWei(minContribution, 'ether')} ETH
-          </MetaValue>
-        </AttributeContainer>
-        <AttributeContainer>
-          <MetaHeader>PRIZE POOL</MetaHeader>
-          <MetaValue>
-            {Web3.utils.fromWei(prizePool.toString(), 'ether')} ETH
-          </MetaValue>
-        </AttributeContainer>
-      </MetaContainer>
-    </Container>
+    <Link route={`/stories/${storyId}`} passHref>
+      <Container>
+        <ContentContainer>
+          <DaysLeftContainer>
+            <ClockIcon icon={faClock} style={{ marginRight: '8px' }} />
+            <DaysLeftText>
+              {`${formatDistance(
+                new Date(),
+                add(new Date(), { seconds: timeLeft }),
+                { includeSeconds: true, addSuffix: true }
+              )}`}
+            </DaysLeftText>
+          </DaysLeftContainer>
+          <HaikuText>{`"${storySoFar}`}</HaikuText>
+        </ContentContainer>
+        <MetaContainer>
+          <AttributeContainer>
+            <MetaHeader>JOIN</MetaHeader>
+            <MetaValue>
+              {Web3.utils.fromWei(minContribution, 'ether')} ETH
+            </MetaValue>
+          </AttributeContainer>
+          <AttributeContainer>
+            <MetaHeader>PRIZE POOL</MetaHeader>
+            <MetaValue>
+              {Web3.utils.fromWei(prizePool.toString(), 'ether')} ETH
+            </MetaValue>
+          </AttributeContainer>
+        </MetaContainer>
+      </Container>
+    </Link>
   );
 }
 
